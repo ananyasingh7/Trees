@@ -21,17 +21,20 @@ public class ArrayOfIntegers{
 				counter++;
 			}
 		}
-		for(int i = 0; i<arr.size(); i++){
-			System.out.println(arr.get(i));
+		return arr;
+	}
+
+	public static ArrayList<Integer> getSortedArray(int n){
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		int length = n;
+		while(length != -1){
+			arr.add(length);
+			length--;
 		}
 		return arr;
 	}
 
-	//public ArrayList<Integer> getSortedArray(int n){
-	//	
-	//}
-
 	public static void main(String[] args){
-		System.out.println(getRandomArray(10));
+		System.out.println(getSortedArray(60));
 	}
 }
