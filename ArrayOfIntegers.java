@@ -35,6 +35,6 @@ public class ArrayOfIntegers{
 	}
 
 	public static void main(String[] args){
-		System.out.println(getSortedArray(60));
+		System.out.println(getSortedArray(20));
 	}
 }
