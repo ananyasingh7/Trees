@@ -21,8 +21,6 @@ public class BSTiterative{
 
 
 	//GROUNDWORK
-
-
 	class Node{                   //Nodes are part of tree
 		Node leftChild;			  //node can have a left child	
 		Node rightChild;		  //node can have a right child	
@@ -47,20 +45,54 @@ public class BSTiterative{
 
 	public void insertIter(int item){ //this method inserts into the tree iteratively and takes in the integer as a parameter
 		Node n = new Node(item); //integer is now inserted in node n 
-
+		boolean checkTree = true; //this flag checks the tree to see if its empty or not
 		//Check if root is empty
 		if(root==null){
 			root = n; //left child and right child are automatically set to null
+			checkTree = false; //function is done running
 		}
 
-		//If you reach here, that means root is not empty and tree has nodes inside of it
+		if(checkTree == true){ 
+			//If you reach here, that means root is not empty and tree has nodes inside of it
+			Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+			Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+			//we need the parentOfCurrentNode so that we can easily assign children
+
+			while(currentNode != null){ //when currentNode does EVENTUALLY reach null, that means we know where to insert using the 2 pointers
+				parentOfCurrentNode = currentNode; //we assign parent to current because we can keep track of Node before it before it reaches null
+				//compare the integer we are trying to insert with the currentNode, if the integer is greater: go right, if the integer is smaller, go left
+				if(item > currentNode.item){ 
+					currentNode = currentNode.rightChild; //since the integer we are trying to insert is greater, we visit the right child and make that our current node
+				}else{
+					currentNode = currentNode.leftChild; //since the integer we are trying to insert is less, we visit the left child and make that our current node
+				}
+			}
+			//now that the loop above is complete, currentNode is null and we have tracked the node before it with the parentOfCurrentNode node
+			//now we have to insert into the tree
+			if(item > parentOfCurrentNode.item){ //compare the integer to the node before the null
+				parentOfCurrentNode.rightChild= n; //since the integer is greater than the node, we assign the integer as the left child
+			}else{
+				parentOfCurrentNode.leftChild = n; //since the integer is less than the parent node, we assign the integer as the left child
+			}
+		}
+			
 	}
 
+	// HELPER
 
+
+	//MAIN
 
 	public static void main(String[] args){
 		BSTiterative Tree = new BSTiterative();
-		System.out.println("Test");
+		//System.out.println(Tree.root.item); //check empty tree
+		Tree.insertIter(5);
+		System.out.println(Tree.root.item); //check tree with root
+		Tree.insertIter(10);
+		Tree.insertIter(8);
+		System.out.println(Tree.root.item); //check tree with left child of root and right child of root
+		System.out.println(Tree.root.leftChild.item);
+		System.out.println(Tree.root.rightChild.item);
 	}
 
 	
