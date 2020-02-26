@@ -80,19 +80,50 @@ public class BSTiterative{
 
 	// HELPER
 
+	//Inorder traversal: left subtree is explored first, then the root, and then right subtree and we can do this recursively
+	//good explanation: https://dev.to/javinpaul/how-to-implement-inorder-traversal-in-a-binary-search-tree-1787
+
+	//IMPORTANT: with Binary Search Tree, an Inorder Traversal will always print least to greatest because it goes from left most subtree to right most subtree
+	//This also means we can use this to find the max and min item of a tree and this also works with Sort();
+	static void inOrderTraversal(Node node){
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		if(node != null){
+			inOrderTraversal(node.leftChild);
+			//System.out.println(node.item);
+			arr.add(node.item);
+			inOrderTraversal(node.rightChild);
+		}
+
+		for(int i = 0; i<arr.size(); i++){
+			System.out.println(arr.get(i));
+		}
+	}
+
+
+	//need to print out BST
+	static ArrayList<Integer> printBST(BSTiterative tree){
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		//arr.add(inOrderTraversal(tree.root));
+		for(int i = 0; i<arr.size(); i++){
+			System.out.println(arr.get(i));
+		}
+		return arr;
+	}
+
+
+
+
 
 	//MAIN
 
 	public static void main(String[] args){
 		BSTiterative Tree = new BSTiterative();
-		//System.out.println(Tree.root.item); //check empty tree
-		Tree.insertIter(5);
-		System.out.println(Tree.root.item); //check tree with root
 		Tree.insertIter(10);
-		Tree.insertIter(8);
-		System.out.println(Tree.root.item); //check tree with left child of root and right child of root
-		System.out.println(Tree.root.leftChild.item);
-		System.out.println(Tree.root.rightChild.item);
+		Tree.insertIter(5);
+		Tree.insertIter(20);
+		Tree.insertIter(7);
+		Tree.insertIter(19);
+		inOrderTraversal(Tree.root);
 	}
 
 	
