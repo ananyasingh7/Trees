@@ -85,17 +85,11 @@ public class BSTiterative{
 
 	//IMPORTANT: with Binary Search Tree, an Inorder Traversal will always print least to greatest because it goes from left most subtree to right most subtree
 	//This also means we can use this to find the max and min item of a tree and this also works with Sort();
-	static void inOrderTraversal(Node node){
-		ArrayList<Integer> arr = new ArrayList<Integer>();
+	static void inOrderTraversal(Node node,ArrayList<Integer> arr){
 		if(node != null){
-			inOrderTraversal(node.leftChild);
-			//System.out.println(node.item);
+			inOrderTraversal(node.leftChild, arr);
 			arr.add(node.item);
-			inOrderTraversal(node.rightChild);
-		}
-
-		for(int i = 0; i<arr.size(); i++){
-			System.out.println(arr.get(i));
+			inOrderTraversal(node.rightChild, arr);
 		}
 	}
 
@@ -103,10 +97,13 @@ public class BSTiterative{
 	//need to print out BST
 	static ArrayList<Integer> printBST(BSTiterative tree){
 		ArrayList<Integer> arr = new ArrayList<Integer>();
-		//arr.add(inOrderTraversal(tree.root));
+		System.out.println("The root of this BST is: " + tree.root.item);
+		inOrderTraversal(tree.root,arr);
+		System.out.print("InOrder Traversal:( ");
 		for(int i = 0; i<arr.size(); i++){
-			System.out.println(arr.get(i));
+			System.out.print(arr.get(i) + ",");
 		}
+		System.out.print(" )");
 		return arr;
 	}
 
@@ -123,7 +120,7 @@ public class BSTiterative{
 		Tree.insertIter(20);
 		Tree.insertIter(7);
 		Tree.insertIter(19);
-		inOrderTraversal(Tree.root);
+		printBST(Tree);
 	}
 
 	
