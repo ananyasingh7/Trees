@@ -78,10 +78,42 @@ public class BSTiterative{
 			
 	}
 
+	public static int findMinIter(BSTiterative tree){ //in binary search tree, the left most node in any subtree is the lowest
+		Node root = tree.root; //find the root of the tree
+		if(tree.root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+
+		while(currentNode != null){ //traverse while reach null
+			parentOfCurrentNode = currentNode; //keeps track of the node before we reach null
+			currentNode = currentNode.leftChild; //going down the tree to the leftmost node in the entire tree
+		}
+		return parentOfCurrentNode.item; //since current is null, we have track of the parent of the current and we return the integer inside the node
+	}
+
+	public static int findMaxIter(BSTiterative tree){// in binary search tree, the right most node in any subtree is the highest
+		Node root = tree.root; //find the root of the tree
+		if(tree.root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+
+		while(currentNode != null){ //traverse while reach null
+			parentOfCurrentNode = currentNode; //keeps track of the node before we reach null
+			currentNode = currentNode.rightChild; //going down the tree to the rightmost node in the entire tree
+		}
+		return parentOfCurrentNode.item;
+	}
+
 	public static void Sort(BSTiterative tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
 		//luckily I created two helper functions that already sort from because of debugging the tree
 		printBST(tree);
 	}
+
+
 
 	// HELPER
 
@@ -121,13 +153,17 @@ public class BSTiterative{
 	public static void main(String[] args){
 		BSTiterative Tree = new BSTiterative();
 		Tree.insertIter(10);
-		Tree.insertIter(5);
-		Tree.insertIter(4);
+		Tree.insertIter(15);
+		Tree.insertIter(34);
 		Tree.insertIter(1);
-		Tree.insertIter(3);
-		Tree.insertIter(11);
-		//printBST(Tree);
+		Tree.insertIter(0);
+		Tree.insertIter(9);
 		Sort(Tree);
+		System.out.println();
+		int Min = findMinIter(Tree);
+		System.out.println(Min);
+		int Max = findMaxIter(Tree);
+		System.out.println(Max);
 	}
 
 	
