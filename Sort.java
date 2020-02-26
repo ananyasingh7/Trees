@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class BSTiterative{
+public class Sort{
 
 	/*
 		Binary Search Tree (Iterative)
@@ -36,7 +36,7 @@ public class BSTiterative{
 
 	public Node root; //root is declared and automatically empty
 
-	public BSTiterative(){ //constructor that is used to declare a Tree
+	public Sort(){ //constructor that is used to declare a Tree
 		this.root = null; //when Tree is created, root will be automatically set to null
 	}
 
@@ -78,9 +78,11 @@ public class BSTiterative{
 			
 	}
 
-	public static void Sort(BSTiterative tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
-		//luckily I created two helper functions that already sort from because of debugging the tree
-		printBST(tree);
+
+	public void Sort(BSTiterative tree){ //Using an in-order traversal, we can easily sort our BST
+	//luckily I already created two helper functions from earlier that easily sort the BST
+
+
 	}
 
 	// HELPER
@@ -116,18 +118,17 @@ public class BSTiterative{
 
 
 
+
+
+
+
 	//MAIN
 
 	public static void main(String[] args){
-		BSTiterative Tree = new BSTiterative();
+		Sort Tree = new Sort();
 		Tree.insertIter(10);
 		Tree.insertIter(5);
-		Tree.insertIter(4);
-		Tree.insertIter(1);
-		Tree.insertIter(3);
-		Tree.insertIter(11);
-		//printBST(Tree);
-		Sort(Tree);
+		printBST(Tree);
 	}
 
 	
