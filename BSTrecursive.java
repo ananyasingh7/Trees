@@ -80,6 +80,90 @@ public class BSTrecursive{
 
 	}
 
+	public static int findMaxRec(Node node){// in binary search tree, the right most node in any subtree is the highest
+		if(node.rightChild == null){
+			return node.item; //since right child is null, we return the node before the right child.. this is our basecase
+		}else{
+			return findMaxRec(node.rightChild); //keep going till the right child hits null
+		}
+	}
+
+	public static int findMinRec(Node node){// in binary search tree, the left most node in any subtree is the lowest
+		if(node.leftChild == null){
+			return node.item; //since left child is null, we return the node before the left child.. this is our basecase
+		}else{
+			return findMinRec(node.leftChild); //keep going till the left child hits null
+		}
+	}
+
+	public static int findNextRec(BSTrecursive tree, int number){ //find the next biggest element in the tree
+		Node root = tree.root;
+		if(root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+		boolean foundNode = false;
+		while(number != currentNode.item){        //I need to assign my number paremeter to the correct node in the tree so these new few lines do that for me
+			parentOfCurrentNode = currentNode;
+			if(number == currentNode.item){
+				foundNode = true;
+			}
+			if(number > currentNode.item){
+				currentNode = currentNode.rightChild;
+			}
+			if(number < currentNode.item){
+				currentNode = currentNode.leftChild;
+			}
+		}
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		inOrderTraversal(tree.root,arr);
+		for(int i = 0;i<arr.size(); i++){
+			if(currentNode.item == arr.get(i)){ //compare the node item with the ArrayList 
+				return arr.get(i+1); //FindNext finds the prev in an ordered list
+			}
+		}
+
+		return -1;
+	}
+
+	public static int findPrevRec(BSTrecursive tree, int number){ //find the next biggest element in the tree
+		Node root = tree.root;
+		if(root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+		boolean foundNode = false;
+		while(number != currentNode.item){        //I need to assign my number paremeter to the correct node in the tree so these new few lines do that for me
+			parentOfCurrentNode = currentNode;
+			if(number == currentNode.item){
+				foundNode = true;
+			}
+			if(number > currentNode.item){ 
+				currentNode = currentNode.rightChild;
+			}
+			if(number < currentNode.item){
+				currentNode = currentNode.leftChild;
+			}
+		}
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		inOrderTraversal(tree.root,arr);
+		for(int i = 0;i<arr.size(); i++){
+			if(currentNode.item == arr.get(i)){ //compare the node item with the ArrayList 
+				return arr.get(i-1); //FindPrev finds the prev in an ordered list
+			}
+		}
+
+		return -1;
+	}
+
+
+
 	public static void Sort(BSTrecursive tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
 		//luckily I created two helper functions that already sort from because of debugging the tree
 		printBST(tree);
@@ -117,6 +201,15 @@ public class BSTrecursive{
 		Tree.insert(22);
 		Tree.insert(50);
 		Sort(Tree);
+		int max = findMaxRec(Tree.root);
+		System.out.println();
+		System.out.println("Maximum Node: " + max);
+		int min = findMinRec(Tree.root);
+		System.out.println("Minimum Node: " + min);
+		int findNext = findNextRec(Tree, 22);
+		System.out.println(findNext);
+		int findPrev = findPrevRec(Tree, 22);
+		System.out.println(findPrev);
 	}
 
 	
