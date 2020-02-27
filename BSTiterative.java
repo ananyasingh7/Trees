@@ -78,6 +78,11 @@ public class BSTiterative{
 			
 	}
 
+	public static void Sort(BSTiterative tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
+		//luckily I created two helper functions that already sort from because of debugging the tree
+		printBST(tree);
+	}
+
 	public static int findMinIter(BSTiterative tree){ //in binary search tree, the left most node in any subtree is the lowest
 		Node root = tree.root; //find the root of the tree
 		if(tree.root == null){ //check if tree is empty
@@ -105,13 +110,77 @@ public class BSTiterative{
 			parentOfCurrentNode = currentNode; //keeps track of the node before we reach null
 			currentNode = currentNode.rightChild; //going down the tree to the rightmost node in the entire tree
 		}
-		return parentOfCurrentNode.item;
+		return parentOfCurrentNode.item; //since current is null, we have track of the parent of the current and we return the integer inside the node
 	}
 
-	public static void Sort(BSTiterative tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
-		//luckily I created two helper functions that already sort from because of debugging the tree
-		printBST(tree);
+	public static int findNextIter(BSTiterative tree, int number){ //find the next biggest element in the tree
+		Node root = tree.root;
+		if(root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+		boolean foundNode = false;
+		while(number != currentNode.item){        //I need to assign my number paremeter to the correct node in the tree so these new few lines do that for me
+			parentOfCurrentNode = currentNode;
+			if(number == currentNode.item){
+				foundNode = true;
+			}
+			if(number > currentNode.item){
+				currentNode = currentNode.rightChild;
+			}
+			if(number < currentNode.item){
+				currentNode = currentNode.leftChild;
+			}
+		}
+
+		if(currentNode.rightChild != null){           //always be checking the right subtree to find the leftmost node 
+			currentNode = currentNode.rightChild;
+			while(currentNode.leftChild != null){     
+				currentNode = currentNode.leftChild; //most leftmost node in the right subtree from the root
+			}
+			return currentNode.item;  
+		}
+
+		return -1;
 	}
+
+	public static int findPrevIter(BSTiterative tree, int number){ //find the previous compared to node
+		Node root = tree.root;
+		if(root == null){ //check if tree is empty
+			return -1; //means tree is empty
+		}
+
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+		boolean foundNode = false;
+		while(number != currentNode.item){        //I need to assign my number paremeter to the correct node in the tree so these new few lines do that for me
+			parentOfCurrentNode = currentNode;
+			if(number == currentNode.item){
+				foundNode = true;
+			}
+			if(number > currentNode.item){
+				currentNode = currentNode.rightChild;
+			}
+			if(number < currentNode.item){
+				currentNode = currentNode.leftChild;
+			}
+		}
+
+		if(currentNode.leftChild != null){           //always be checking the left subtree to find the rightmost node 
+			currentNode = currentNode.leftChild;
+			while(currentNode.rightChild != null){     
+				currentNode = currentNode.rightChild; //most rightmost node in the left subtree from the root
+			}
+			return currentNode.item;  
+		}
+
+		return -1;
+	}
+
+
+
 
 
 
@@ -152,18 +221,22 @@ public class BSTiterative{
 
 	public static void main(String[] args){
 		BSTiterative Tree = new BSTiterative();
+		Tree.insertIter(30);
+		Tree.insertIter(20);
+		Tree.insertIter(40);
 		Tree.insertIter(10);
-		Tree.insertIter(15);
-		Tree.insertIter(34);
-		Tree.insertIter(1);
-		Tree.insertIter(0);
-		Tree.insertIter(9);
+		Tree.insertIter(25);
+		Tree.insertIter(22);
+		Tree.insertIter(50);
 		Sort(Tree);
 		System.out.println();
 		int Min = findMinIter(Tree);
 		System.out.println(Min);
 		int Max = findMaxIter(Tree);
 		System.out.println(Max);
+		System.out.println();
+		System.out.println(findNextIter(Tree,30));
+		System.out.println(findPrevIter(Tree,30));
 	}
 
 	
