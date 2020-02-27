@@ -135,12 +135,12 @@ public class BSTiterative{
 			}
 		}
 
-		if(currentNode.rightChild != null){           //always be checking the right subtree to find the leftmost node 
-			currentNode = currentNode.rightChild;
-			while(currentNode.leftChild != null){     
-				currentNode = currentNode.leftChild; //most leftmost node in the right subtree from the root
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		inOrderTraversal(tree.root,arr);
+		for(int i = 0;i<arr.size(); i++){
+			if(currentNode.item == arr.get(i)){ //compare the node item with the ArrayList 
+				return arr.get(i+1); //FindNext finds the prev in an ordered list
 			}
-			return currentNode.item;  
 		}
 
 		return -1;
@@ -168,12 +168,12 @@ public class BSTiterative{
 			}
 		}
 
-		if(currentNode.leftChild != null){           //always be checking the left subtree to find the rightmost node 
-			currentNode = currentNode.leftChild;
-			while(currentNode.rightChild != null){     
-				currentNode = currentNode.rightChild; //most rightmost node in the left subtree from the root
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		inOrderTraversal(tree.root,arr);
+		for(int i = 0;i<arr.size(); i++){
+			if(currentNode.item == arr.get(i)){ //compare the node item with the ArrayList 
+				return arr.get(i-1); //FindPrev finds the prev in an ordered list
 			}
-			return currentNode.item;  
 		}
 
 		return -1;
