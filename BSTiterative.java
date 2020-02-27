@@ -78,6 +78,10 @@ public class BSTiterative{
 			
 	}
 
+	public void delete(int item){
+		
+	}
+
 	public static void Sort(BSTiterative tree){ //to sort a binary search tree (ascending), simply do a inOrder Traversal
 		//luckily I created two helper functions that already sort from because of debugging the tree
 		printBST(tree);

@@ -80,6 +80,46 @@ public class BSTrecursive{
 
 	}
 
+	public void delete(int item){ //its 2:30 in the morning and I don't think I have enough brain cells left to do this
+		Node currentNode = root; //this pointer starts at the root and will eventually keep changing while we traverse the tree
+		Node parentOfCurrentNode = null; //this pointer keeps track of the PARENT of the currentNode (so basically the node behind it)
+		boolean foundNode = false;
+		while(item != currentNode.item){        //I need to assign my number paremeter to the correct node in the tree so these new few lines do that for me
+			parentOfCurrentNode = currentNode;
+			if(item == currentNode.item){
+				foundNode = true;
+			}
+			if(item > currentNode.item){
+				currentNode = currentNode.rightChild;
+			}
+			if(item < currentNode.item){
+				currentNode = currentNode.leftChild;
+			}
+		}
+
+		boolean checkTree = true; //this flag checks the tree to see if its empty or not
+		//Check if root is empty
+		if(root==null){
+			checkTree = false; //function is done running
+		}
+
+		if(checkTree == true){
+			deleteRec(root, currentNode); //delete the node by recursively checking, starting from the top
+		}
+
+
+	}
+
+	public Node deleteRec(Node first, Node node){ //this is the part where I can say I have no more brain cells to do this... goodnight!
+		if(root.leftChild == null){
+			return first.rightChild;
+		}else if (root.rightChild == null){
+			return first.leftChild;
+		}
+	
+		return first;
+	}
+
 	public static int findMaxRec(Node node){// in binary search tree, the right most node in any subtree is the highest
 		if(node.rightChild == null){
 			return node.item; //since right child is null, we return the node before the right child.. this is our basecase
@@ -210,6 +250,11 @@ public class BSTrecursive{
 		System.out.println(findNext);
 		int findPrev = findPrevRec(Tree, 22);
 		System.out.println(findPrev);
+
+		//System.out.println();
+		//Tree.delete(40);   
+		//Tree.delete(22);
+		//Sort(Tree);
 	}
 
 	
