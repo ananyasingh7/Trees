@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - AVLiterative",
+            "request": "launch",
+            "mainClass": "AVLiterative"
+        }
+    ]
+}
