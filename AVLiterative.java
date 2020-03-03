@@ -25,27 +25,33 @@ public class AVLiterative{
 		this.root = null; 
     }
     
-    public static int getHeight(Node node){
-        int height = node.height;
-        return height;
+    // AVL Tree Helper Functions
+    public static int getHeight(Node node){ //get height of node to find the Balance Factor of Node
+        if (node != null){ 
+            int leftChildCounter = getHeight(node.leftChild); 
+            int rightChildCounter = getHeight(node.rightChild); 
+            if (leftChildCounter > rightChildCounter){ // go through node's left and right subtree heights and return highest value which is the height
+                return (leftChildCounter+1);
+            }else{
+                return (rightChildCounter+1);
+            }  
+        } 
+
+        return -1;
+    } 
+
+    public static int getBalanceFactor(Node node){ // Balance Factor (node) = height(LeftSubTree) - height(RightSubTree)
+        return (getHeight(node.leftChild)-getHeight(node.rightChild)); 
     }
 
-    public static int getBalanceFactor(Node node){
-        int leftChildCounter = 0;
-        int rightChildCounter = 0;
-
-        while(node.leftChild != null){
-            leftChildCounter += 1;
-            node = node.leftChild;
+    public static boolean checkBalanced(Node node){ //Check if Tree is balanced
+        if(node == null){
+            return true; //getBalanceFactor(node) <= 1
+        } else if (checkBalanced(node.rightChild) && checkBalanced(node.leftChild) && getBalanceFactor(node) <= 1) { //Balance factor of every node in tree has to be below 1
+            return true;
+        }else{
+            return false;
         }
-
-        while(node.rightChild != null){
-            rightChildCounter += 1;
-            node = node.rightChild;
-        }
-
-        int balanceFactor = leftChildCounter - rightChildCounter;
-        return balanceFactor;
     }
 
     public void insertIter(int item){ //this method inserts into the tree iteratively and takes in the integer as a parameter
@@ -79,7 +85,9 @@ public class AVLiterative{
 			}else{
 				parentOfCurrentNode.leftChild = n; //since the integer is less than the parent node, we assign the integer as the left child
 			}
-		}
+        }
+        
+
 			
     }
     
@@ -112,22 +120,39 @@ public class AVLiterative{
 
     public static void main(String[] args) {
         AVLiterative Tree = new AVLiterative();
-		Tree.insertIter(30);
+		Tree.insertIter(9);
+        Tree.insertIter(5);
+		Tree.insertIter(15);
+		Tree.insertIter(3);
+		Tree.insertIter(6);
+		Tree.insertIter(11);
+        Tree.insertIter(21);
+        Tree.insertIter(2);
+        Tree.insertIter(13);
+        Tree.insertIter(18);
+        Tree.insertIter(23);
+        Tree.insertIter(16);
         Tree.insertIter(20);
-        int height = getHeight(Tree.root);
-        System.out.println(height);
-		Tree.insertIter(40);
-		Tree.insertIter(10);
-		Tree.insertIter(25);
-		Tree.insertIter(22);
-        Tree.insertIter(50);
-        int BF1 = getBalanceFactor(Tree.root);
+        Tree.insertIter(2012);
+        Tree.insertIter(20121);
+        Tree.insertIter(201211);
+        Tree.insertIter(20120);
+        //Tree.insertIter(0);
+        Sort(Tree);
+        System.out.println();
+        int BF1 = getBalanceFactor(Tree.root.leftChild);
+        //int H1 = maxDepth(Tree.root.rightChild);
         System.out.println(BF1);
-        int BF2 = getBalanceFactor(Tree.root.rightChild);
-        System.out.println(BF2);
-        int BF3 = getBalanceFactor(Tree.root.leftChild);
-        System.out.println(BF3);
-
-		Sort(Tree);
+        //int BF2 = getBalanceFactor(Tree.root.rightChild);
+        //System.out.println(BF2);
+        //int BF3 = getBalanceFactor(Tree.root.leftChild);
+        //System.out.println(BF3);
+        
+        if(checkBalanced(Tree.root)){
+            System.out.println("Tree is balanced");
+        }else{
+            System.out.println("Tree is not balanced");
+        }
+        
     }
 }
