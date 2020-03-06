@@ -43,6 +43,13 @@ public class BSTiterative{
 
 	//FUNCTIONS
 
+	public int traverseCount = 0;
+
+
+	public int getTraverseCount(){
+        return traverseCount;
+    }
+
 	public void insertIter(int item){ //this method inserts into the tree iteratively and takes in the integer as a parameter
 		Node n = new Node(item); //integer is now inserted in node n 
 		boolean checkTree = true; //this flag checks the tree to see if its empty or not
@@ -59,6 +66,7 @@ public class BSTiterative{
 			//we need the parentOfCurrentNode so that we can easily assign children
 
 			while(currentNode != null){ //when currentNode does EVENTUALLY reach null, that means we know where to insert using the 2 pointers
+				traverseCount++;
 				parentOfCurrentNode = currentNode; //we assign parent to current because we can keep track of Node before it before it reaches null
 				//compare the integer we are trying to insert with the currentNode, if the integer is greater: go right, if the integer is smaller, go left
 				if(item > currentNode.item){ 
